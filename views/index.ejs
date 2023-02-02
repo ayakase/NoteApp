@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> NOTE APP </title>
+    <link rel="stylesheet" href="/styles.css">
+    <link rel="icon" href="/public/favicon.ico">
+</head>
+
+<body>
+    <div class="container">
+        <div class="top-bar">
+            <p class="app-title"> NOTE APP </p>
+        </div>
+        <form action="" method="POST" class="body-section"
+            onsubmit="setTimeout(function(){window.location.reload();},10);">
+            <input name="title" type="text" id="title" placeholder="title">
+            <textarea placeholder="content" name="content" type="text" id="content"></textarea>
+            <div class="buttons">
+                <button id="submit" onclick="setTimeout(Clearfields, 500)"> Submit </button>
+        </form>
+    </div>
+    <div class="delete-button">
+        <a id="delete" href="/delete-note" type="submit"
+            onclick="setTimeout(function(){window.location.reload();},10);"> Delete all</a>
+    </div>
+    <div class="note-section">
+        <% for (let i=result.length-1; i>= 0; i--){ %>
+            <div id="<%= result[i].id %>" class="note-container">
+                <b>
+                    <%= result[i].title %>
+                </b>
+                <div class="note-individual">
+
+                    <br>
+                    <%= result[i].content %>
+                </div>
+                <div class="button-section">
+                    <button id="<%= result[i].id %>" class="edit-single"> Edit </button>
+                    <form id="<%= result[i].id %>" action="" class="edit" style="display: none;">
+                        <input name="title" type="text" placeholder="title">
+                        <textarea placeholder="content" name="content" type="text"></textarea>
+
+                    </form>
+                    <a href="/trash/<%= result[i].id %>" class="delete-single"
+                        onclick="setTimeout(function(){window.location.reload();},10);"> Delete </a>
+                </div>
+            </div>
+
+            <% } %>
+    </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+
+<script defer>
+    function Clearfields() {
+        document.getElementById("title").value = "";
+        document.getElementById("content").value = "";
+    }
+</script>
+
+</html>
